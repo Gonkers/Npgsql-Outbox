@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management-amqp1
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - ./docker_vol/rabbitmq:/var/lib/rabbitmq
+
+  postgresql:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - ./docker_vol/postgresql:/var/lib/postgresql/data
